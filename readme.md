@@ -75,15 +75,11 @@ Single-threaded Execution
     Total items scraped: 10
     Execution time: 19.89 seconds
 
-![10](img/10.jpeg)
-
 Multi-threaded Execution
 
     Number of workers: 10
     Total items scraped: 100
     Execution time: 42.25 seconds
-
-![100](img/100.jpeg)
 
 The multiprocessing implementation reduces the execution time significantly by parallelizing the data retrieval process.
 

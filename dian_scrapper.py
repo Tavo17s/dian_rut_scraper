@@ -77,6 +77,63 @@ def fix_website_values(browser):
             f"arguments[0].innerText = '{cleaned_text}'", row)
 
 
+def save_data_in_df(browser, data, results):
+
+    resultado = {}
+    concatenado = ""
+    resultado['nit'] = data
+
+    try:
+        resultado['estado_rut'] = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT:estado"]').text
+    except:
+        resultado['estado_rut'] = ''
+
+    try:
+        resultado['fecha_consulta'] = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT"]/table[2]/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr[1]/td[2]').text
+    except:
+        resultado['fecha_consulta'] = ''
+
+    try:
+        razon_social = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT:razonSocial"]').text
+        concatenado += razon_social
+    except:
+        pass
+
+    try:
+        primer_nombre = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT:primerNombre"]').text
+        concatenado += primer_nombre + " "
+    except:
+        pass
+
+    try:
+        otros_nombres = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT:otrosNombres"]').text
+        concatenado += otros_nombres + " "
+    except:
+        pass
+
+    try:
+        primer_apellido = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT:primerApellido"]').text
+        concatenado += primer_apellido + " "
+    except:
+        pass
+
+    try:
+        segundo_apellido = browser.find_element(
+            By.XPATH, '//*[@id="vistaConsultaEstadoRUT:formConsultaEstadoRUT:segundoApellido"]').text
+        concatenado += segundo_apellido
+    except:
+        pass
+
+    resultado['nombre_completo'] = concatenado
+    results.append(resultado)
+
+
 def main():
 
     browser = chrome_setup()
@@ -86,14 +143,25 @@ def main():
 
     users_data = get_nits()
 
+    results = []
+
     for user_data in users_data:
+
         send_user_id(browser, user_data)
 
         fix_website_values(browser=browser)
 
+        save_data_in_df(browser=browser, data=user_data, results=results)
+
         take_screenshot(browser=browser, idNumber=user_data)
 
         time.sleep(1)
+
+    df_results = pd.DataFrame(results)
+
+    print(df_results)
+
+    # You can export the results in a csv format or whatever you'd like
 
 
 if __name__ == '__main__':
@@ -102,4 +170,4 @@ if __name__ == '__main__':
     end_time = time.time()
     execution_time = end_time - start_time
     print(
-        f"Execution time of 100 users with multiprocess: {execution_time} seconds")
+        f"Execution time of 1 user: {execution_time} seconds")

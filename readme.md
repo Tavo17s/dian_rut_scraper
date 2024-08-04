@@ -11,8 +11,7 @@ This project is a web scraper designed to efficiently retrieve data from a websi
 3. [Setup Instructions](#setup-instructions)
 4. [Usage](#usage)
 5. [Contributing](#contributing)
-6. [License](#license)
-7. [Disclaimer](#disclaimer)
+6. [Disclaimer](#disclaimer)
 
 ## Features
 
@@ -31,8 +30,8 @@ This project is a web scraper designed to efficiently retrieve data from a websi
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/Tavo17s/dian_rut_scrapper.git
-    cd dian_rut_scrapper
+    git clone https://github.com/Tavo17s/dian_rut_scraper.git
+    cd dian_rut_scraper
     ```
 
 2. **Create and activate a virtual environment:**
@@ -60,7 +59,7 @@ This project is a web scraper designed to efficiently retrieve data from a websi
 2. **Run the web scraper:**
 
     ```sh
-    python dian_scraper_multi.py
+    venv/bin/python dian_scraper_multi.py  # On Windows use venv\Scripts\python dian_scraper_multi.py
     ```
 
 3. **Screenshots and data will be saved in the `pdfs` directory as PDFs.**
